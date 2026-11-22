@@ -1,0 +1,62 @@
+/* =========================================================
+   MAGAZIN-OLDALAK — közös stílusok
+   A rovatok saját stílusa a rovat-fájlokban van (css exporttal).
+   Oldal: A5 = 560×794 px (96 dpi-n 148×210 mm).
+   ========================================================= */
+.pal-sage {--paper:#f4f2ea;--paper2:#eae9de;--ink:#2e372e;--accent:#56664f;--soft:#7f8975;--band:#e2e5d6;--band2:#d5dac6;--heart:#d9dcbf;--tint:rgba(34,44,34,.58);--line:#b9bfaa;--frame:#e7e3d3;--dark:#2e372e}
+.pal-blush{--paper:#fdf9f7;--paper2:#f7ecea;--ink:#3a2e2f;--accent:#a96a74;--soft:#a58d90;--band:#f4e1e1;--band2:#ecd0d1;--heart:#e9ddc6;--tint:rgba(66,40,44,.52);--line:#d8b9bc;--frame:#f1dcdc;--dark:#4a3537}
+.pal-noir {--paper:#fbfaf7;--paper2:#efeeea;--ink:#1b1b1b;--accent:#1b1b1b;--soft:#77746e;--band:#ebe9e4;--band2:#dcd9d2;--heart:#e2dfd8;--tint:rgba(15,15,15,.6);--line:#b8b4ac;--frame:#e4e1da;--dark:#151515}
+.bw .ph i{filter:grayscale(1) contrast(1.06)}
+
+.page{width:560px;height:794px;background:var(--paper);position:relative;overflow:hidden;color:var(--ink);
+  font-family:'Cormorant Garamond',Georgia,serif;font-variant-numeric:lining-nums;font-size:13.5px;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page *{box-sizing:border-box}
+.page::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:60;opacity:.45;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .25 0 0 0 0 .2 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.page p{margin:0 0 .55em}.page p:last-child{margin-bottom:0}
+.folio{position:absolute;bottom:16px;font-size:10px;letter-spacing:.2em;color:var(--soft);z-index:5}
+.page.l .folio{left:30px}.page.r .folio{right:30px}
+
+/* tipográfia */
+.script{font-family:'Sacramento',cursive;font-weight:400;line-height:1;color:var(--ink)}
+.script2{font-family:'Pinyon Script',cursive;font-weight:400;line-height:1.1}
+.caps{text-transform:uppercase;letter-spacing:.2em;font-weight:500}
+.disp{font-family:'Playfair Display',Georgia,serif}
+.acc{color:var(--accent)}.soft{color:var(--soft)}
+.ttl{position:absolute;top:28px;left:34px;font-size:60px}
+.ttl.c{left:0;right:0;text-align:center}
+.kick{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--soft);font-weight:500}
+.abs{position:absolute}
+.fit{overflow:hidden}
+.just{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.divider{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--soft);font-size:13px}
+.divider i{display:block;width:64px;height:1px;background:var(--line)}
+
+/* fotók */
+.ph{position:relative;overflow:hidden;background:var(--band)}
+.ph i{position:absolute;inset:0;background-size:cover;background-repeat:no-repeat}
+.ph.none{background:linear-gradient(135deg,var(--band) 0,var(--band2) 100%);display:flex;align-items:center;justify-content:center}
+.ph.none::after{content:"";position:absolute;inset:0;opacity:.35;background:repeating-linear-gradient(135deg,transparent 0 9px,rgba(255,255,255,.5) 9px 10px)}
+.ph-hint{position:relative;z-index:1;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--soft)}
+.framed{padding:7px;background:var(--frame)}
+.framed>.ph{width:100%;height:100%}
+.polaroid{background:#fff;padding:9px 9px 34px;box-shadow:0 6px 14px -6px rgba(0,0,0,.35)}
+.polaroid>.ph{width:100%;height:100%}
+
+/* kerek portré */
+.av{border-radius:50%;padding:4px;background:var(--band2);flex-shrink:0;width:60px;height:60px}
+.av>.ph,.av>.mono{width:100%;height:100%;border-radius:50%}
+.av .mono{display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-style:italic;font-size:21px;color:var(--accent);
+  background:radial-gradient(circle at 35% 30%,var(--paper) 0,var(--band) 100%)}
+
+/* fél oldalas blokkok */
+.half{position:absolute;left:0;right:0;height:397px;overflow:hidden}
+.half.top{top:0}.half.bot{top:397px}
+.half-sep{position:absolute;left:60px;right:60px;top:396px;height:1px;background:var(--line);z-index:4}
+.half-sep::after{content:"♡";position:absolute;left:50%;top:-10px;transform:translateX(-50%);background:var(--paper);padding:0 10px;color:var(--soft);font-size:13px}
+.half .ttl{top:22px;font-size:48px}
+
+/* szerkesztő: kiemelés (nyomtatásban nem látszik) */
+.page[data-rovat]{cursor:pointer}
+.sel-hl{outline:3px solid #c9708a;outline-offset:-3px}
+@media print{.ph-hint{display:none}.sel-hl{outline:none}}

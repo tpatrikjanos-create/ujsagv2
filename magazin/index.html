@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esküvői Magazin</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💍%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/magazin.css">
+<link rel="stylesheet" href="css/app.css">
+<style id="rovatCss"></style>
+<style id="printCss"></style>
+</head>
+<body class="pal-sage">
+
+<header class="appbar">
+  <div class="brand">Esküvői Magazin</div>
+  <div class="tools">
+    <div class="seg" id="segPal"><button data-v="sage" class="on" title="Zsálya"><i style="background:#56664f"></i>Zsálya</button><button data-v="blush" title="Púder"><i style="background:#c9909a"></i>Púder</button><button data-v="noir" title="Fekete-fehér"><i style="background:#1b1b1b"></i>Noir</button></div>
+    <div class="seg" id="segBw"><button data-v="0" class="on">Színes</button><button data-v="1">FF fotók</button></div>
+    <div class="seg" id="segView"><button data-v="flip" class="on">Lapozó</button><button data-v="all">Mind</button></div>
+    <div class="dm-wrap">
+      <button class="btn pri" id="btnPrint">🖨️ Nyomtatás</button>
+      <div class="dmenu" id="printMenu">
+        <button data-print="booklet"><b>Füzet A4-re</b><small>2 oldal laponként, kétoldalas nyomtatás, összehajtva kész füzet</small></button>
+        <button data-print="a5"><b>Oldalanként A5</b><small>nyomdának vagy PDF-be mentéshez</small></button>
+      </div>
+    </div>
+    <div class="dm-wrap">
+      <button class="btn" id="btnMore">⋯</button>
+      <div class="dmenu" id="moreMenu">
+        <button id="btnExport"><b>💾 Mentés fájlba</b><small>a teljes projekt, képekkel együtt</small></button>
+        <button id="btnImport"><b>📂 Megnyitás fájlból</b></button>
+        <button id="btnSample"><b>↺ Mintaadatok visszaállítása</b><small>minden mező a mintára áll vissza</small></button>
+        <button id="btnEmpty"><b>✕ Üres kezdés</b><small>minden szöveg és kép törlése</small></button>
+      </div>
+    </div>
+  </div>
+  <button class="btn mob-only" id="btnTools">⚙</button>
+  <button class="btn pri mob-only" id="btnPanel">✎ Szerkesztés</button>
+</header>
+
+<div class="wrap">
+  <aside class="panel" id="panel"><div id="panelIn"></div></aside>
+  <main class="preview" id="preview"></main>
+</div>
+
+<div id="print"></div>
+<input type="file" id="fileImg" accept="image/*" hidden>
+<input type="file" id="fileImgs" accept="image/*" multiple hidden>
+<input type="file" id="fileJson" accept=".json,application/json" hidden>
+<div class="toast" id="toast"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
