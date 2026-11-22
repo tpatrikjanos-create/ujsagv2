@@ -28,7 +28,10 @@ let ST = store.loadState() || freshState(false);
 for (const r of ROVATOK) {
   if (!ST.data[r.id]) ST.data[r.id] = clone(r.sample || {});
   if (ST.on[r.id] === undefined) ST.on[r.id] = true;
-  if (!r.fixed && !ST.order.includes(r.id)) ST.order.push(r.id);
+  if (!r.fixed && !ST.order.includes(r.id)) {
+    const di = DEFAULT_ORDER.indexOf(r.id), prev = DEFAULT_ORDER.slice(0, Math.max(0, di)).reverse().find(id => ST.order.includes(id));
+    ST.order.splice(prev ? ST.order.indexOf(prev) + 1 : ST.order.length, 0, r.id);
+  }
 }
 ST.order = ST.order.filter(id => BY[id] && !BY[id].fixed);
 

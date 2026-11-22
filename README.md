@@ -24,10 +24,10 @@ magazin/
   assets/minta.jpg      mintafotó
 ```
 
-### Rovatok (35)
+### Rovatok (37)
 - **Gerinc:** alapadatok, címlap (fotós / klasszikus), hátlap (köszönet + vendéglista + vonalkód), köszöntő, menetrend, étlap, dresscode
 - **Rólunk:** számokban a szerelmünk, a sztorink dióhéjban, hogyan ismerkedtünk meg, a legelső közös kép, minden évből egy kép, gyerekkori képek, a lánykérés, jegyesfotók, exkluzív interjú
-- **Emberek:** a csapatunk, köszönet a szülőknek, szerelmek melyekből születtünk, akik fentről ünnepelnek, otthonról ünneplő négylábú, a szinglik (2 oldal), díjnyerteseink, az ifjú pár itala
+- **Emberek:** a csapatunk, az ő oldala: koszorúslányok (2 oldal), az ő oldala: a vőlegény csapata (2 oldal, sötét), köszönet a szülőknek, szerelmek melyekből születtünk, akik fentről ünnepelnek, otthonról ünneplő négylábú, a szinglik (2 oldal), díjnyerteseink, az ifjú pár itala
 - **Utazás:** utazási rovat, közös bakancslista, nászút
 - **Szórakozás:** igaz-hamis, játékok (szókereső + sudoku), a lagzi szabályzata, másnaposság ellen, horoszkóp, GYIK, színező
 - **Interaktív:** QR-kód, fotóvadász, robbantsd fel a telefonunkat, hagyj nekünk üzenetet

@@ -15,6 +15,6 @@ export const DEFAULT_ORDER = [
   'koszonto', 'menetrend', 'etlap', 'dresscode', 'drinks',
   'szamok', 'sztori', 'ismerkedes', 'legelsokep', 'years', 'lanykeres', 'jegyesfoto', 'interju',
   'childhood', 'szuloknek', 'szulok', 'utazas', 'naszut', 'bakancslista', 'igazhamis',
-  'csapat', 'szinglik', 'dijak', 'memorial', 'negylabu',
+  'csapat', 'holgyoldal', 'uroldal', 'szinglik', 'dijak', 'memorial', 'negylabu',
   'lagziszab', 'masnapos', 'horoszkop', 'gyik', 'qr', 'jatekok', 'fotovadasz', 'robbantsd', 'message', 'szinezo'
 ];

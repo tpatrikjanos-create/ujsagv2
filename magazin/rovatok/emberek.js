@@ -12,6 +12,64 @@ function rosette(photo, name) {
     <div class="rn script2">${esc(name)}</div></div>`;
 }
 
+
+/* „Az ő oldala” — kétoldalas: bal oldalon nagy fotó a kiemelt taggal, jobbra a csapat rácsban */
+function sideRovat(o) {
+  return {
+    id: o.id, title: o.title, group: 'Emberek', size: 'spread', desc: o.desc,
+    fields: [
+      { k: 'cim', label: 'Cím a nagy fotón', type: 'text', ph: 'Az ő oldala' },
+      { k: 'fonev', label: o.foLabel + ' — név', type: 'text' },
+      { k: 'foszerep', label: 'Szerepe', type: 'text', ph: o.foSzerep },
+      { k: 'fofoto', label: 'Nagy fotó (álló)', type: 'photo', hint: 'Közös kép a ' + o.kivel + ' és ' + o.foLabel.toLowerCase() + ' — a legjobb, ha vidám, mozgalmas.' },
+      { k: 'csapatcim', label: 'A csapat címe', type: 'text', ph: o.csapatCim },
+      { k: 'tagok', label: 'Tagok (max. 6)', type: 'rows', max: 6, fields: [{ k: 'nev', label: 'Név', type: 'text' }, { k: 'kapcs', label: 'Kapcsolat', type: 'text' }, { k: 'foto', label: 'Portré', type: 'photo' }] },
+      { k: 'stilus', label: 'Kiadás', type: 'select', opts: [['vilagos', 'Világos'], ['sotet', 'Sötét (fekete)']] },
+      { k: 'ff', label: 'Fekete-fehér nagy fotó', type: 'select', opts: [['1', 'Igen'], ['0', 'Nem, színes']] },
+    ],
+    sample: o.sample,
+    css: o.id === 'holgyoldal' ? SIDE_CSS : '',
+    render(d) {
+      const dark = d.stilus === 'sotet', T = (d.tagok || []).filter(x => x.nev).slice(0, 6);
+      const L = `<div class="sde l ${d.ff === '0' ? '' : 'ffoto'}">${ph(d.fofoto, 'big', '', 'nagy fotó')}<div class="shd"></div>
+        <div class="st script2">${esc(d.cim)}</div>
+        <div class="who"><div class="nm script2">${esc(d.fonev)}</div><div class="rl">${esc(d.foszerep)}</div></div></div>`;
+      const R = `<div class="sde r ${dark ? 'dark' : ''}"><div class="pat"></div><div class="ct script2">${esc(d.csapatcim)}</div>
+        <div class="grid">${T.map((x, i) => `<div class="tile" style="margin-top:${i % 3 === 1 ? 0 : 26}px">${x.foto ? ph(x.foto) : `<div class="ph none mono"><span>${esc(initials(x.nev))}</span></div>`}
+          <div class="tn">${esc(x.nev)}</div><div class="tk">– ${esc(x.kapcs)} –</div></div>`).join('')}</div></div>`;
+      return [L, R];
+    }
+  };
+}
+const SIDE_CSS = `
+.sde{position:absolute;inset:0}
+.sde.l .big{position:absolute;inset:0}
+.sde.l.ffoto .big i{filter:grayscale(1) contrast(1.08)}
+.sde.l .shd{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0,rgba(0,0,0,0) 28%,rgba(0,0,0,0) 58%,rgba(0,0,0,.55) 100%)}
+.sde.l .st{position:absolute;top:64px;left:40px;color:#fff;font-size:72px;transform:rotate(-9deg);text-shadow:0 2px 16px rgba(0,0,0,.3);white-space:nowrap}
+.sde.l .who{position:absolute;left:0;right:0;bottom:64px;transform:rotate(-8deg);transform-origin:30% 100%}
+.sde.l .nm{color:#fff;font-size:58px;margin-left:56px;text-shadow:0 2px 16px rgba(0,0,0,.35);white-space:nowrap;position:relative;z-index:2}
+.sde.l .rl{display:inline-block;margin:-6px 0 0 120px;padding:6px 18px 5px;background:rgba(255,255,255,.22);backdrop-filter:blur(2px);color:#fff;font-family:'Playfair Display',serif;font-size:17px;letter-spacing:.14em;text-transform:uppercase}
+.sde.r{background:var(--paper)}
+.sde.r .pat{position:absolute;inset:0;opacity:.5;background:
+  radial-gradient(ellipse 60px 26px at 20% 30%,var(--band) 0,transparent 70%),radial-gradient(ellipse 70px 30px at 80% 18%,var(--band) 0,transparent 70%),
+  radial-gradient(ellipse 80px 30px at 70% 70%,var(--band) 0,transparent 70%),radial-gradient(ellipse 60px 24px at 15% 85%,var(--band) 0,transparent 70%)}
+.sde.r .ct{position:absolute;top:44px;left:36px;right:20px;font-size:62px;transform:rotate(-5deg);white-space:nowrap;color:var(--ink)}
+.sde.r .grid{position:absolute;left:30px;right:30px;top:178px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px 14px}
+.sde.r .tile{text-align:center}
+.sde.r .tile .ph{width:100%;height:196px;box-shadow:0 10px 18px -12px rgba(0,0,0,.45)}
+.sde.r .tile .mono{display:flex;align-items:center;justify-content:center}
+.sde.r .tile .mono span{position:relative;z-index:1;font-family:'Playfair Display',serif;font-style:italic;font-size:46px;color:var(--accent)}
+.sde.r .tn{margin-top:10px;font-family:'Playfair Display',serif;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;line-height:1.15}
+.sde.r .tk{font-size:9.5px;letter-spacing:.1em;white-space:nowrap;text-transform:uppercase;color:var(--soft);margin-top:3px;font-style:italic}
+.sde.r.dark{background:#141414;color:#f2efe8}
+.sde.r.dark .pat{opacity:.05;background:repeating-radial-gradient(circle at 30% 40%,#fff 0 1px,transparent 1px 26px),repeating-radial-gradient(circle at 75% 70%,#fff 0 1px,transparent 1px 34px)}
+.sde.r.dark .ct{color:#fff}
+.sde.r.dark .tn{color:#fff}
+.sde.r.dark .tk{color:#b9b4aa}
+.sde.r.dark .tile .ph.none{background:linear-gradient(135deg,#2a2a2a,#3a3a3a)}
+.sde.r.dark .tile .mono span{color:#d9d2c4}`;
+
 export default [
 /* ---------------------------------------------------------------- */
 {
@@ -23,7 +81,7 @@ export default [
     { k: 'foto', label: 'Csoportkép', type: 'photo' },
   ],
   sample: { koszonet: 'Köszönjük, hogy mellettünk álltok ezen a különleges napon.\nNélkületek nem mondanánk ki az igent.', foto: S('50% 78%', 2.6),
-    tagok: [['Kiss Anna', 'Tanú'], ['Nagy Bence', 'Tanú'], ['Tóth Réka', 'Koszorúslány'], ['Varga Zsófi', 'Koszorúslány'], ['Szabó Dani', 'Vőfély'], ['Horváth Márta', 'Az örömanya'], ['Kovács László', 'Az örömapa'], ['Kis Lili', 'Virágszóró kislány']].map(([nev, szerep]) => ({ nev, szerep })) },
+    tagok: [['Horváth Márta', 'Az örömanya'], ['Kovács László', 'Az örömapa'], ['Szabó Erika', 'Az anyós'], ['Szabó József', 'Az após'], ['Szabó Dani', 'Vőfély'], ['Varga Péter', 'Ceremóniamester'], ['Kis Lili', 'Virágszóró kislány'], ['Kis Bori', 'Gyűrűhordozó']].map(([nev, szerep]) => ({ nev, szerep })) },
   css: `
 .csp ul{position:absolute;top:116px;left:30px;width:300px;bottom:40px;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;justify-content:space-around}
 .csp li{display:flex;align-items:center;gap:14px}
@@ -40,6 +98,14 @@ export default [
       <div class="thx">${paras(d.koszonet)}</div><div class="pic framed">${ph(d.foto)}</div></div>`;
   }
 },
+sideRovat({ id: 'holgyoldal', title: 'Az ő oldala: koszorúslányok', desc: 'Két oldal: nagy fotó a tanúval, mellette a koszorúslányok portréi.',
+  foLabel: 'Tanú', foSzerep: 'Tanú', kivel: 'menyasszonyról', csapatCim: 'Koszorúslányok',
+  sample: { cim: 'Az ő oldala', fonev: 'Kiss Anna', foszerep: 'Tanú', fofoto: S('70% 30%', 1.25), csapatcim: 'Koszorúslányok', stilus: 'vilagos', ff: '0',
+    tagok: [['Tóth Réka', 'a menyasszony húga'], ['Varga Zsófi', 'gyerekkori barátnő'], ['Balogh Edit', 'legjobb barátnő'], ['Lakatos Dóra', 'unokatestvér'], ['Mészáros Kitti', 'egyetemi barátnő'], ['Sipos Fanni', 'családi barát']].map(([nev, kapcs]) => ({ nev, kapcs })) } }),
+sideRovat({ id: 'uroldal', title: 'Az ő oldala: a vőlegény csapata', desc: 'Két oldal, sötét kiadásban: nagy fotó a tanúval, mellette a vőlegény barátai.',
+  foLabel: 'Tanú', foSzerep: 'Tanú', kivel: 'vőlegényről', csapatCim: 'A vőlegény csapata',
+  sample: { cim: 'Az ő oldala', fonev: 'Nagy Bence', foszerep: 'Tanú', fofoto: S('30% 30%', 1.25), csapatcim: 'A vőlegény csapata', stilus: 'sotet', ff: '1',
+    tagok: [['Rácz Gergő', 'a vőlegény öccse'], ['Molnár Ákos', 'unokatestvér'], ['Papp Levente', 'egyetemi barát'], ['Deák Márk', 'gyerekkori barát'], ['Simon Dávid', 'családi barát'], ['Juhász Zoli', 'kollégából haver']].map(([nev, kapcs]) => ({ nev, kapcs })) } }),
 /* ---------------------------------------------------------------- */
 {
   id: 'szuloknek', title: 'Köszönet a szülőknek', group: 'Emberek', size: 'half',
